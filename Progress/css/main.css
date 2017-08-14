@@ -5,9 +5,10 @@
 .pyl-progress {
 	width: 0%;
 	height: 3px;
-	background: blue;
+	background-color: rgb(0, 117, 226);
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: 1000;
 }
 

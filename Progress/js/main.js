@@ -5,7 +5,7 @@ var _winH = window.innerHeight;
 var _scrollTop = 0;
 
 if(_bodyH - _winH <= 0){
-	progress.style.width = "100%";
+	progress.style.width = "0%";
 }
 
 
