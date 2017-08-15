@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#browse {
+				width: 70px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<input id="browse" type="file" onchange="previewFiles()" multiple>
+		<div id="preview"></div>
+		<div id="showName"></div>
+
+		<script>
+			function previewFiles() {
+
+				var preview = document.querySelector('#preview');
+				var showName = document.querySelector('#showName');
+				var files = document.querySelector('input[type=file]').files;
+				
+				var str="";
+				
+				function readAndPreview(file) {
+
+					// 确保 `file.name` 符合我们要求的扩展名
+					if(/\.(jpe?g|png|gif)$/i.test(file.name)) {
+						var reader = new FileReader();
+
+						reader.addEventListener("load", function() {
+							var image = new Image();
+							image.width = 100;
+							image.height = 50;
+							image.title = file.name;
+							image.src = this.result;
+							preview.appendChild(image);
+							str += "<span>"+image.title+"</span>";
+							showName.innerHTML += str;
+						}, false);
+
+						reader.readAsDataURL(file);
+					}
+
+				}
+
+				if(files) {
+					[].forEach.call(files, readAndPreview);
+				}
+
+			}
+		</script>
+
+	</body>
+
+</html>

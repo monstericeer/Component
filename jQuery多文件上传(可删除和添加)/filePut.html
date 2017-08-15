@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="UTF-8">
+
+	<head>
+		<title>jQuery动态添加input type=file文件上传域</title>
+		<script src="jquery1.8.3.js"></script>
+		<style>
+			.icon-remove {
+				width: 20px;
+				height: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<input type="file" id="myFile" multiple>
+		
+		<button onclick="getInfo()">提交</button>
+		<br />
+		<div class="upfile-list-mes" style="padding: 20px;background: cornflowerblue;display: inline-block;"></div>
+		
+		
+		
+		<script>
+			//定义一个数组容器
+			var fileLists = [];
+			//获取'选择文件'按钮
+			var fileInput = document.getElementById('myFile');
+			//定义选取的总文件变量
+			var files = fileInput.files;
+			
+			//点击'选择文件'按钮
+			$('#myFile').on('change', function(event) {
+				//重新获取选取的总文件
+				files = fileInput.files; 
+				console.log("files"+files);
+				
+				//全部转化为数组
+				files = Array.prototype.slice.call(files); 
+				console.log("fileLists:"+fileLists);
+				//合并
+				fileLists = fileLists.concat(files);	
+				
+				//选取文件后，显示文件名
+				if(files.length !== 0) {
+					var html = '';
+					for(var i = 0; i < files.length; i++) {
+						html += "<p>" + files[i].name + "&nbsp&nbsp<img src='WechatSearchGo.png' class='icon-remove'></p>";
+					}
+					$('.upfile-list-mes').append(html);
+				}
+			});
+
+			/*点击叉叉删除要上传的文件*/
+			$('.upfile-list-mes').on('click', '.icon-remove', function(event) {
+				var ind = $(this).parent().index();
+				$(this).parent().css('display', 'none');
+				fileLists.splice(ind, 1);
+			});
+			
+			//点击提交按钮
+			function getInfo(){
+				
+				//最后上传的文件(内容为fileLists数组中的内容)
+				
+			}
+			
+			
+		</script>
+
+	</body>
+
+</html>
